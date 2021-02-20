@@ -11,8 +11,8 @@
 * For cloning
 
 ```python
-git clone <>
-cd referral
+git clone https://github.com/Kiru13/Django-Referral-System.git 
+cd Django-Referral-System
 ```
 
 ## Installation
