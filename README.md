@@ -27,7 +27,7 @@ venv/Scripts/activate
 For Linux
 
 ```python
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 ```
 
@@ -51,7 +51,9 @@ pip install -r requirements.txt
     EMAIL_FROM = <Host email address>
     EMAIL_PASSWORD = <Host password>
   ```
-  Note: Verify above environment variables are set properly and accessible to project
+  Note: 
+  * Verify above environment variables are set properly and accessible to project
+  * More info on get and set of environment variables  - https://docs.python.org/2/using/cmdline.html#environment-variables
 * Database setup
   ```python
   python manage.py makemigrations
