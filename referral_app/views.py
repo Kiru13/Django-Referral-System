@@ -56,7 +56,16 @@ class SignupViewSet(mixins.CreateModelMixin,
         """
         try:
             data = request.data
-            if data.get('referral_code'):
+            if data['referral_code'] == '':
+                serializer = SignupSerializer(data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return Response({
+                    'status': 'Success',
+                    'message': "Signed up successfully.",
+                    'data': serializer.data
+                }, 200)
+            else:
                 referral_code = data['referral_code']
                 referrer_user = Users.objects.get(referral_code=referral_code)
                 if referrer_user:
@@ -85,15 +94,15 @@ class SignupViewSet(mixins.CreateModelMixin,
                             'message': "Signed up successfully.",
                             'data': serializer.data
                         }, 200)
-            else:
-                serializer = SignupSerializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
-                return Response({
-                    'status': 'Success',
-                    'message': "Signed up successfully.",
-                    'data': serializer.data
-                }, 200)
+                else:
+                    serializer = SignupSerializer(data=request.data)
+                    serializer.is_valid(raise_exception=True)
+                    serializer.save()
+                    return Response({
+                        'status': 'Success',
+                        'message': "Signed up successfully.",
+                        'data': serializer.data
+                    }, 200)
         except serializers.ValidationError:
             return Response({
                 'status': 'Failed',

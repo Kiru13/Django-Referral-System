@@ -92,4 +92,8 @@ pip install -r requirements.txt
 ### User Detail API - Get the user detail by userid to get the points earned in total and referral code
 * API End Point - {server DNS}/referral/users/{user_id} - (GET)
 
+### Django admin page
+* Check admin for detail info. (requires superuser credentials)
+
+
 Note : server DNS - server url such as localhost:8000
