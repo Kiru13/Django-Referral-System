@@ -6,7 +6,7 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = ['id', 'email', 'password', 'referral_code']
-        extra_kwargs = {'password': {'write_only': True}, 'referral_code': {'read_only': True}}
+        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         user = Users(email=validated_data['email'])
@@ -24,4 +24,4 @@ class UserSerializer(serializers.ModelSerializer):
 class ReferralSerializer(serializers.ModelSerializer):
     class Meta:
         model = Referral
-        fields = '__all__'
+        fields = ['id', 'to_email', 'referrer']

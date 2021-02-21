@@ -11,6 +11,10 @@ class UsersViewSet(mixins.RetrieveModelMixin,
                    viewsets.GenericViewSet):
     """ Users view set with allowed only retrieve model """
 
+    permission_classes = [AllowAny]
+    queryset = Users.objects.all()
+    serializer_class = UserSerializer
+
     def retrieve(self, request, *args, **kwargs):
         """
         Get user with requested user id
@@ -57,7 +61,8 @@ class SignupViewSet(mixins.CreateModelMixin,
         try:
             data = request.data
             if data['referral_code'] == '':
-                serializer = SignupSerializer(data=request.data)
+                del data['referral_code']
+                serializer = SignupSerializer(data=data)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
                 return Response({
@@ -95,7 +100,7 @@ class SignupViewSet(mixins.CreateModelMixin,
                             'data': serializer.data
                         }, 200)
                 else:
-                    serializer = SignupSerializer(data=request.data)
+                    serializer = SignupSerializer(data=data)
                     serializer.is_valid(raise_exception=True)
                     serializer.save()
                     return Response({
@@ -123,6 +128,10 @@ class SignupViewSet(mixins.CreateModelMixin,
 class ShareReferralCodeViewSet(mixins.CreateModelMixin,
                                viewsets.GenericViewSet):
     """ Share referral code view set with allowed create"""
+
+    permission_classes = [AllowAny]
+    queryset = Referral.objects.all()
+    serializer_class = ReferralSerializer
 
     def create(self, request, *args, **kwargs):
         """

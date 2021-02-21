@@ -10,7 +10,7 @@ class Users(AbstractUser):
     """ Users model with AbstractUser inherited"""
     username = None
     email = models.EmailField(max_length=100, unique=True)
-    referral_code = models.CharField(max_length=50)
+    referral_code = models.CharField(max_length=50, blank=True)
     points_earned = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -43,5 +43,5 @@ class Referral(models.Model):
     class Meta:
         unique_together = ('referrer', 'to_email')
 
-    def __repr__(self):
+    def __str__(self):
         return f'Referrer: {self.referrer}, Referrer To: {self.referred_to}, status:{self.status}'
